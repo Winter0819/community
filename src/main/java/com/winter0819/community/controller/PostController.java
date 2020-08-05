@@ -21,7 +21,7 @@ public class PostController {
 
     @RequestMapping(value = "/getPost" , method = RequestMethod.GET)
     public String getPost(@RequestParam String postid,@RequestParam String userid) {
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://user-center/user/getUserById?userid={1}",String.class,userid);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://usercenter/user/getUserById?userid={1}",String.class,userid);
         String username = responseEntity.getBody();
         logger.info("{},{},username-{}","PostController","createPost",username);
         return postid+username;
