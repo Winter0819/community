@@ -1,5 +1,7 @@
 package com.winter0819.community.controller;
 
+import com.netflix.discovery.converters.Auto;
+import com.winter0819.community.controller.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,14 @@ public class PostController {
 
     private final static Logger logger = LoggerFactory.getLogger(PostController.class);
 
+
     @Autowired
-    private RestTemplate restTemplate;
+    UserService userService;
 
     @RequestMapping(value = "/getPost" , method = RequestMethod.GET)
     public String getPost(@RequestParam String postid,@RequestParam String userid) {
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://usercenter/user/getUserById?userid={1}",String.class,userid);
-        String username = responseEntity.getBody();
+
+        String username = userService.getUser(userid);
         logger.info("{},{},username-{}","PostController","createPost",username);
         return postid+username;
     }
